@@ -1,0 +1,27 @@
+<nz-sider nzCollapsible nzBreakpoint="lg" [nzCollapsedWidth]="0" [nzWidth]="280">
+    <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li nz-submenu nzTitle="Clientes" nzIcon="user">
+            <ul>
+                <li nz-menu-item routerLink="/">Consultar cliente</li>
+                <li nz-menu-item routerLink="/">Cadastrar cliente</li>
+            </ul>
+        </li>
+        <li nz-submenu nzTitle="Financeiro" nzIcon="credit-card">
+            <ul>
+                <li nz-menu-item routerLink="/">Consultar finança</li>
+                <li nz-menu-item routerLink="/">Configurações</li>
+            </ul>
+        <li nz-submenu nzTitle="Treinos" nzIcon="book">
+            <ul>
+                <li nz-menu-item routerLink="/">Consultar treino</li>
+                <li nz-menu-item routerLink="/">Cadastrar treino</li>
+                <li nz-menu-item routerLink="/">Vincular treino</li>
+            </ul>
+        </li>
+        <li nz-submenu nzTitle="Relatórios" nzIcon="cloud-download">
+            <ul>
+                <li nz-menu-item><a routerLink="/">Imprimir relatório</a></li>
+            </ul>
+        </li>
+    </ul>
+</nz-sider>

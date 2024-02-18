@@ -1,0 +1,1 @@
+export type errorCode = 403 | 500;

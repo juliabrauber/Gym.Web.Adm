@@ -1,0 +1,23 @@
+<div class="dashboard-container">
+    <div class="charts" style="display: flex; ">
+        <div class="chart" style="width: 40%; margin-left: 125px; text-align: center;">
+            <h2>Acessos semanal</h2>
+            <canvas  id="MyChartLine" >{{ chartLine }}</canvas>
+            <p>Total: {{ enrolledStudents }}</p>
+        </div>
+        <div style="width: 50%; margin-left: 40px; text-align: center;">
+            <h2>Controle de mensalidade</h2>
+            <canvas  id="MyChartDoughnut" >{{ chartDoughnut }}</canvas>
+            <p>Total: {{ studentsWithUpToDatePayments }}</p>
+        </div>
+    </div>
+    <div class="charts" style="display: flex;">
+        <div class="chart" style="width: 40%; margin-left: 125px; text-align: center;">
+            <h2>Alunos matriculados</h2>
+            <canvas baseChart [datasets]="chartDataEnrolledStudents" [labels]="chartLabelsEnrolledStudents" [options]="barChartOptions" [legend]="true"
+                chartType="line">
+            </canvas>
+            <p>Total: {{ enrolledStudents }}</p>
+        </div>
+    </div>
+</div>

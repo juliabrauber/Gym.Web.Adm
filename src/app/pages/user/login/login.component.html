@@ -1,0 +1,31 @@
+<form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+  <!-- <div class="logo" routerLink="/home">
+    <img src="../../../assets/logo.png" title="Estoque Online" alt="Estoque Online">
+  </div> -->
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Usuário obrigatório!">
+      <nz-input-group nzPrefixIcon="user">
+        <input type="text" nz-input formControlName="userName" placeholder="Username" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Senha obrigatório!">
+      <nz-input-group nzPrefixIcon="lock">
+        <input type="password" nz-input formControlName="password" placeholder="Password" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <div nz-row class="login-form-margin">
+    <div nz-col [nzSpan]="12">
+      <label nz-checkbox formControlName="remember">
+        <span>Lembre de mim</span>
+      </label>
+    </div>
+    <div nz-col [nzSpan]="12">
+      <a class="login-form-forgot" style="font-weight: bold;">Esqueceu a senha?</a>
+    </div>
+  </div>
+  <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Login</button>
+  Não tem uma conta? <a style="font-weight: bold;" (click)="registerUser()">registre-se!</a>
+</form>

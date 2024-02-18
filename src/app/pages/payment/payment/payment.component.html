@@ -1,0 +1,212 @@
+<nz-card class="mb-25">
+    <h2>Olá {{model.customerName | uppercase}},</h2>
+    <p>Leia atentamente as informações abaixo antes de realizar o pagamento.</p>
+</nz-card>
+<nz-card nzTitle="Resumo da compra" class="border-top-card mb-25">
+    <nz-table #itemsCart [nzData]="shoppingCart" nzFrontPagination="false">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th nzAlign="center">Qtd.</th>
+                <th nzAlign="right">Vlr. Unitário</th>
+                <th nzAlign="right">Vlr. Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of itemsCart.data">
+                <td>{{item.description}}</td>
+                <td nzAlign="center">{{item.amount}}</td>
+                <td nzAlign="right">{{item.value | currency:'BRL'}}</td>
+                <td nzAlign="right">{{item.total | currency:'BRL'}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">
+                    <h4>Total</h4>
+                </td>
+                <td class="text-right">
+                    <h4 class="text-success">{{ shoppingCart | sum:'total' | currency:'BRL' }}</h4>
+                </td>
+            </tr>
+        </tfoot>
+    </nz-table>
+</nz-card>
+<nz-card nzTitle="Selecione a forma de pagamento" class="border-top-card mb-25">
+    <nz-tabset nzType="card">
+        <nz-tab *ngFor="let tab of tabs" [nzTitle]="titleTemplate">
+          <ng-template #titleTemplate>
+            <i nz-icon [nzType]="tab.icon"></i>
+            {{ tab.title }}
+          </ng-template>
+          <ng-container *ngTemplateOutlet="contentTab; context:tab"></ng-container>
+        </nz-tab>
+    </nz-tabset>
+</nz-card>
+<ng-template #contentTab let-name="name">
+
+    <!-- Pagamento via cartão de crédito -->
+    <div *ngIf="name === 'CRED'" class="p-t-15  ph-10">
+        <h2>Informações de Pagamento</h2>
+        <p>
+            Preencha os campos abaixo com as informações necessárias para realização do pagamento.
+        </p>
+        <form nz-form [formGroup]="creditCardFormGroup" nzLayout="vertical" (ngSubmit)="submitCreditCardForm()">
+            <div formGroupName="creditCard">
+                <nz-row [nzGutter]="12">
+                    <nz-col nzSm="12" nzXs="24">
+                        <nz-form-item>
+                            <nz-form-label nzFor="holder" nzRequired>Nome Igual ao Cartão</nz-form-label>
+                            <nz-form-control nzErrorTip="Informe o nome" nzHasFeedback>
+                                <input nz-input type="text" id="holder" formControlName="holder" maxlength="100"
+                                    style="text-transform: uppercase;" required autocomplete="cc-name">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col>
+
+                    <nz-col nzSm="12" nzXs="24">
+                        <nz-form-item>
+                            <nz-form-label nzFor="cardNumber" nzRequired class="d-space-between">
+                                Número do Cartão
+                                <app-credit-card-flag
+                                    class="p-absolute-r"
+                                    [creditCardNumber]="creditCardFormGroup.controls.cardNumber.value">
+                                </app-credit-card-flag>
+                            </nz-form-label>
+                            <nz-form-control nzHasFeedback nzErrorTip="">
+                                <nz-input-group [nzSuffix]="creditCardSuffix">
+                                    <input nz-input type="text" id="cardNumber" formControlName="cardNumber"
+                                        inputmode="numeric" nzRequired [mask]="creditCardMask" autocomplete="cc-number">
+                                </nz-input-group>
+                                <ng-template #creditCardSuffix>
+                                    <i nz-icon nzType="credit-card" nzTheme="fill"></i>
+                                </ng-template>
+                            </nz-form-control>                                
+                        </nz-form-item>                                        
+                    </nz-col>
+                </nz-row>
+
+                <nz-row [nzGutter]="12">   
+                    <nz-col nzSm="12" nzXs="24">
+                        <nz-form-item>
+                            <nz-form-label nzFor="expirationDate" nzRequired>Validade (MM/AAAA)</nz-form-label>
+                            <nz-form-control [nzErrorTip]="ccExpiryErrorTpl" nzHasFeedback>
+                                <input nz-input type="text" id="expirationDate" inputmode="numeric"
+                                    formControlName="expirationDate" rInputMask="99/9999" required
+                                    autocomplete="cc-exp">
+                                <ng-template #ccExpiryErrorTpl let-control>
+                                    <ng-container *ngIf="control.hasError('required')">
+                                        Informe a validade
+                                    </ng-container>
+                                    <ng-container *ngIf="control.hasError('invalidCreditCardExiry')">
+                                        Cartão vencido
+                                    </ng-container>
+                                    <ng-container
+                                        *ngIf="control.hasError('invalid') || control.hasError('invalidCreditCardExiryFormat')">
+                                        Vencimento inválido
+                                    </ng-container>
+                                </ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col> 
+
+                    <nz-col nzSm="12" nzXs="24">
+                        <nz-form-item>
+                            <nz-form-label nzFor="securityCode" nzRequired>Cód. Segurança</nz-form-label>
+                            <nz-form-control nzErrorTip="Informe o código" nzHasFeedback>
+                                <input class="border-shadow" nz-input type="password" id="securityCode" inputmode="numeric"
+                                    formControlName="securityCode" mask="0009" required autocomplete="cc-csc">
+                            </nz-form-control>
+                        </nz-form-item>
+                    </nz-col> 
+                </nz-row>
+            </div>
+
+            <nz-row [nzGutter]="12">
+                <nz-col nzSm="12" nzXs="24">
+                    <nz-form-item>
+                        <nz-form-label nzFor="ddlInstallments" nzRequired>Forma de pagamento</nz-form-label>
+                        <nz-form-control>
+                            <nz-select id="ddlInstallments" formControlName="installments" nzShowSearch nzAllowClear>
+                                <nz-option [nzLabel]="item.value" [nzValue]="item.key" *ngFor="let item of installmentsCreditCard"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col> 
+            </nz-row>
+
+            <nz-row [nzGutter]="12">
+                <div nz-col nzSpan="24">
+                    <nz-form-item class="text-right">
+                        <nz-form-control>                            
+                            <button nz-button nzType="primary" class="b-responsive">Realizar Pagamento</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </nz-row>
+           
+        </form>
+    </div>    
+    
+    <!-- Pagamento via boleto bancário -->
+    <div *ngIf="name === 'BOLE'" class="p-t-15 ph-10">
+        <h2>Boleto bancário</h2>
+        <p>
+            Clique em gerar boleto.
+        </p>     
+        <form nz-form [formGroup]="barCodeFormGroup" nzLayout="vertical" (ngSubmit)="submitBarCodeForm()">
+            <div nz-row nzJustify="space-around" [nzGutter]="[20, 20]">                
+                <div nz-col nzSm="12" nzXs="24">                    
+                    <nz-form-item class="text-right">
+                        <nz-form-control>                            
+                            <button nz-button nzType="primary" class="b-responsive" type="submit">Gerar Boleto</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </form>            
+    </div>
+
+    <!-- Pagamento via LINK -->
+    <div *ngIf="name === 'LINK'" class="p-t-15 ph-10">
+        <h2>Informações de Pagamento</h2>
+        <p>
+            Preencha os campos abaixo com as informações necessárias para iniciar o processo de pagamento.
+        </p>
+        <form nz-form [formGroup]="linkFormGroup" nzLayout="vertical" (ngSubmit)="submitLinkForm()">
+            <nz-row [nzGutter]="12">
+                <nz-col nzSm="12" nzXs="24">
+                    <nz-form-item>
+                        <nz-form-label nzFor="ddlCardBrand" nzRequired>Bandeira</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <nz-select id="ddlCardBrand" formControlName="cardBrand" nzShowSearch nzAllowClear>
+                                <nz-option [nzLabel]="item.value" [nzValue]="item.key" *ngFor="let item of cardBrands"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>                   
+                </nz-col>                        
+
+                <nz-col nzSm="12" nzXs="24">
+                    <nz-form-item>
+                        <nz-form-label nzFor="ddlInstallments" nzRequired>Número de parcelas</nz-form-label>
+                        <nz-form-control nzHasFeedback>
+                            <nz-select id="ddlInstallments" formControlName="installments" nzShowSearch nzAllowClear>
+                                <nz-option [nzLabel]="item.value" [nzValue]="item.key" *ngFor="let item of installmentsLink"></nz-option>
+                            </nz-select>
+                        </nz-form-control>
+                    </nz-form-item>
+                </nz-col> 
+            </nz-row>
+            <nz-row [nzGutter]="12">
+                <div nz-col nzSpan="24">
+                    <nz-form-item class="text-right">
+                        <nz-form-control nzHasFeedback>                            
+                            <button nz-button nzType="primary" class="b-responsive" type="submit">Realizar Pagamento</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </nz-row>
+        </form>
+    </div>
+
+</ng-template>

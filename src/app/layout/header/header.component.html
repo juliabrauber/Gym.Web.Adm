@@ -1,0 +1,33 @@
+<nz-header style="background: #001529;" >
+    <!-- <div class="logo" routerLink="/dashboard" style="background: #1b569e;" >
+    </div> -->
+    <div class="nav-right">
+        <nz-avatar nzSize="large" nzIcon="user" nzSrc="../../../assets/img/steve-jobs.jpg" nz-dropdown
+            nzTrigger="click" [nzDropdownMenu]="menu"></nz-avatar>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <ul nz-menu>
+                <li class="user-info">
+                    <nz-avatar [nzShape]="'circle'" [nzSize]="48" nzIcon="user"
+                        nzSrc="../../../assets/img/steve-jobs.jpg"></nz-avatar>
+                    <div>
+                        <p>
+                            <b>Fortfit</b>
+                        </p>
+                        <p>
+                            <span nz-typography nzType="secondary">João Paulo Costa</span>
+                        </p>
+                        <p>
+                            <span nz-typography nzType="secondary">Gerência</span>
+                        </p>
+                    </div>
+                </li>
+                <li nz-menu-divider></li>
+                <a (click)="logout()">
+                  <li nz-menu-item>
+                      <i nz-icon nzType="logout" nzTheme="outline" style="color:#1890ff"></i> <span>Sair</span>
+                  </li>
+                </a>
+            </ul>
+        </nz-dropdown-menu>
+    </div>
+</nz-header>

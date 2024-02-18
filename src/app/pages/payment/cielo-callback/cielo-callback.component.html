@@ -1,0 +1,110 @@
+<nz-card class="mb-25">
+    <h2>Olá {{userName | uppercase}},</h2>
+    <ng-container>                
+        <div nz-row nzJustify="start" nzAlign="middle">            
+            <div nz-col nzFlex="auto" [ngSwitch]="statusPayment">
+                <div nz-space nzAlign="center" nzSize="middle" *ngSwitchCase="4">
+                    <nz-space>
+                        <i nz-icon class="text-ok fs-20pt" [nzType]="'check-circle'" [nzTheme]="'fill'"></i>
+                    </nz-space>
+                    <nz-space>Seu pagamento no valor de <strong>R$ 200,00</strong> foi aprovado.</nz-space>
+                </div>
+                <div nz-space nzAlign="center" nzSize="middle" *ngSwitchCase="6">
+                    <nz-space>
+                        <i nz-icon class="text-ok fs-20pt" [nzType]="'check-circle'" [nzTheme]="'fill'"></i>
+                    </nz-space>
+                    <nz-space>Seu pagamento no valor de <strong>R$ 200,00</strong> foi aprovado.</nz-space>
+                </div>
+                <div nz-space nzAlign="center" nzSize="middle" *ngSwitchCase="9">
+                    <nz-space>
+                        <i nz-icon class="text-danger fs-20pt" [nzType]="'exclamation-circle'" [nzTheme]="'fill'"></i>
+                    </nz-space>
+                    <nz-space>Erro ao processar o retorno, o pagamento foi cancelado.</nz-space>
+                </div>
+                <div nz-space nzAlign="center" nzSize="middle" *ngSwitchCase="0">
+                    <nz-space>
+                        <i nz-icon class="text-danger fs-20pt" [nzType]="'exclamation-circle'" [nzTheme]="'fill'"></i>
+                    </nz-space>
+                    <nz-space>A sua transação não foi concluída e sua fatura continua com a situação pendente.</nz-space>
+                </div>
+                <div nz-space nzAlign="center" nzSize="middle" *ngSwitchDefault>
+                    <nz-space>
+                        <i nz-icon class="text-danger fs-20pt" [nzType]="'exclamation-circle'" [nzTheme]="'fill'"></i>
+                    </nz-space>
+                    <nz-space>A transação foi cancelada ou reprovada. Sua fatura continua com a situação pendente.</nz-space>
+                </div>
+            </div>
+        </div>
+    </ng-container>    
+</nz-card>
+<nz-card class="border-top-card mb-25">
+    <nz-table #transactionItems [nzData]="transactions" nzFrontPagination="false">
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th>Autenticação</th>
+                <th>Data</th>                
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of transactionItems.data">
+                <td class="text-ok">{{item.status}}</td>
+                <td class="word-break-all">{{item.tid}}</td>
+                <td>{{item.date | date:"dd/MM/yyyy 'às' HH:mm"}}</td>                
+            </tr>
+        </tbody>        
+    </nz-table>
+</nz-card>
+<nz-card nzTitle="Resumo da compra" class="border-top-card mb-25">
+    <nz-table #itemsCart [nzData]="shoppingCart" nzFrontPagination="false">
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th nzAlign="center">Qtd.</th>
+                <th nzAlign="right">Vlr. Unitário</th>
+                <th nzAlign="right">Vlr. Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of itemsCart.data">
+                <td>{{item.description}}</td>
+                <td nzAlign="center">{{item.amount}}</td>
+                <td nzAlign="right">{{item.value | currency:'BRL'}}</td>
+                <td nzAlign="right">{{item.total | currency:'BRL'}}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" class="text-right">
+                    <h4>Total</h4>
+                </td>
+                <td class="text-right">
+                    <h4 class="text-success">{{ shoppingCart | sum:'total' | currency:'BRL' }}</h4>
+                </td>
+            </tr>
+        </tfoot>
+    </nz-table>
+    <div nz-row nzJustify="center">
+        <div nz-col>
+            <div nz-space nzAlign="center" nzSize="middle">
+                <nz-space>
+                    <button nz-button nzType="primary">
+                        <i nz-icon [nzType]="'caret-left'" [nzTheme]="'fill'"></i>Voltar
+                    </button>
+                </nz-space>                
+                <nz-space>
+                    <button nz-button nzType="primary">
+                        <i nz-icon [nzType]="'printer'" [nzTheme]="'fill'"></i>Imprimir
+                    </button>
+                </nz-space>
+            </div>
+        </div>
+    </div>
+</nz-card>
+<nz-card class="mb-25">
+    <div nz-row nzJustify="center">
+        <div nz-col>
+            <strong>Token:</strong> 000000000000000000000000000000000000000
+        </div>
+    </div>
+</nz-card>

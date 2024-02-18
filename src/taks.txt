@@ -1,0 +1,18 @@
+Lista de tarefas:
+
+- Configurar Auth2 Basic Authentication. OK
+- Criar modelos do servico. OK
+- Criar camada de serciço. OK
+- Adicionar load no projeto pra requisições HTTP - OK falta testar
+- Adicionar load no projeto pra requisições de rotas - OK falta testar
+- Configurar alert p/ o sistema em caso de erro - OK
+- Arrumar espaçamento e alinhamento das logos na responsividade. OK
+- Arrumar responsividade, tabelas em geral. OK
+- Arrumar responsividade formulário de pagamento. OK
+- Fazer página de forbidden - OK
+- A rota principal obrigatoriamente tera um parametro de token, usuário so pode acessar essa página se o token ainda for válido. OK
+- Recuperar os dados da intenção de pagamento. OK
+
+- Carregar os dados da intenção de pagamento. Em andamento
+- Realizar o pagamento via cartão de crédito.
+- Realizar o pagamento via boleto bancário.
