@@ -1,4 +1,4 @@
-# PayCenter
+# Gym Admin Dashboard
 
 > **Este projeto foi desenvolvido no início dos meus estudos em Angular.**
 >
@@ -6,7 +6,7 @@
 
 ## Sobre o projeto
 
-O PayCenter é uma aplicação web construída em Angular, com foco em gestão de pagamentos e usuários. O projeto possui as seguintes principais funcionalidades e estruturas:
+O Gym Admin Dashboard é uma aplicação web construída em Angular, com foco em gestão de pagamentos e usuários. O projeto possui as seguintes principais funcionalidades e estruturas:
 
 - **Autenticação de usuário**
 - **Dashboard** com informações resumidas
