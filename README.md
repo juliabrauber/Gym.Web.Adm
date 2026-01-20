@@ -1,27 +1,55 @@
 # PayCenter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.7.
+> **Este projeto foi desenvolvido no início dos meus estudos em Angular.**
+>
+> Ele serviu como base para aprender conceitos fundamentais do framework, organização de módulos, rotas, componentes, serviços, diretivas e integração com bibliotecas de terceiros.
 
-## Development server
+## Sobre o projeto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+O PayCenter é uma aplicação web construída em Angular, com foco em gestão de pagamentos e usuários. O projeto possui as seguintes principais funcionalidades e estruturas:
 
-## Code scaffolding
+- **Autenticação de usuário**
+- **Dashboard** com informações resumidas
+- **Gestão de pagamentos** (cartão, link, etc.)
+- **Componentes reutilizáveis** (ex: bandeira de cartão)
+- **Diretivas e pipes customizados**
+- **Integração com bibliotecas como ng-zorro-antd, ng2-charts, ngx-mask**
+- **Estrutura modularizada** (layout, pages, shared, etc.)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Estrutura principal
 
-## Build
+- `src/app/pages/` — Páginas principais (dashboard, user, payment, error, not-found)
+- `src/app/layout/` — Componentes de layout (header, menu)
+- `src/app/shared/` — Módulos, componentes, pipes, diretivas e modelos compartilhados
+- `src/assets/` — Imagens e recursos estáticos
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Como executar
 
-## Running unit tests
+1. **Pré-requisitos:**
+   - Node.js (versão recomendada: 16.x ou superior)
+   - Angular CLI instalado globalmente (`npm install -g @angular/cli`)
+2. **Instale as dependências:**
+   ```bash
+   npm install
+   ```
+3. **Execute o servidor de desenvolvimento:**
+   ```bash
+   npm start
+   ```
+   Acesse [http://localhost:4200](http://localhost:4200) no navegador.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Scripts úteis
 
-## Running end-to-end tests
+- `npm start` — Inicia o servidor de desenvolvimento
+- `npm run build` — Gera a build de produção
+- `npm test` — Executa os testes unitários
+- `npm run e2e` — Executa os testes end-to-end
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Observações
 
-## Further help
+- Este projeto foi feito para fins de aprendizado e pode conter práticas e padrões de código que evoluíram ao longo do tempo.
+- Sinta-se à vontade para explorar e utilizar como base para seus próprios estudos!
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+---
+
+Gerado com [Angular CLI](https://github.com/angular/angular-cli).
